@@ -222,7 +222,7 @@ export function InvoiceForm() {
               <Tag className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
               <select
                 id="currency"
-                value={store.currency}
+                value={store.currency || 'USD'}
                 onChange={(e) => store.updateField('currency', e.target.value)}
                 className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 pl-9 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
               >
