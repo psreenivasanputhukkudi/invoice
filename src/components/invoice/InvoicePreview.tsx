@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { forwardRef } from 'react';
 import { useInvoiceStore } from '@/lib/invoice-store';
 import { ModernTemplate } from './templates/ModernTemplate';
@@ -9,12 +8,7 @@ import { MinimalTemplate } from './templates/MinimalTemplate';
 
 export const InvoicePreview = forwardRef<HTMLDivElement>(function InvoicePreview(_props, ref) {
   const template = useInvoiceStore((s) => s.template);
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    // Rehydrate from localStorage on client, then reveal preview
-    useInvoiceStore.persist.rehydrate().then(() => setHydrated(true));
-  }, []);
+  const hydrated = useInvoiceStore((s) => s._hydrated);
 
   // Before hydration: render a matching skeleton so server/client HTML are identical
   if (!hydrated) {

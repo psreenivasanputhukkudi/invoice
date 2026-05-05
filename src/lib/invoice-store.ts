@@ -25,6 +25,9 @@ const today = '';
 const dueDate = '';
 
 interface InvoiceStore extends InvoiceData {
+  // Hydration flag
+  _hydrated: boolean;
+
   // Computed
   subtotal: number;
   taxAmount: number;
@@ -83,6 +86,7 @@ export const useInvoiceStore = create<InvoiceStore>()(
 
       return {
         ...initialState,
+        _hydrated: false,
         ...initialTotals,
 
         updateField: (key, value) => {
@@ -193,6 +197,8 @@ export const useInvoiceStore = create<InvoiceStore>()(
       onRehydrateStorage: () => {
         return (_state, error) => {
           if (error || !_state) return;
+          // Mark hydration complete
+          _state._hydrated = true;
           // Fill in dates on first visit (no persisted data)
           if (!_state.invoiceDate) {
             _state.invoiceDate = new Date().toISOString().split('T')[0];

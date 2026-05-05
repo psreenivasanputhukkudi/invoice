@@ -1,16 +1,22 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { InvoiceHeader } from '@/components/invoice/InvoiceHeader';
 import { InvoiceForm } from '@/components/invoice/InvoiceForm';
 import { InvoicePreview } from '@/components/invoice/InvoicePreview';
 import { TemplateSwitcher } from '@/components/invoice/TemplateSwitcher';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Eye, PenLine, Palette } from 'lucide-react';
+import { useInvoiceStore } from '@/lib/invoice-store';
 
 export default function Home() {
   const previewRef = useRef<HTMLDivElement>(null);
   const [mobileTab, setMobileTab] = useState('edit');
+
+  // Rehydrate from localStorage once on mount (triggers both form + preview)
+  useEffect(() => {
+    useInvoiceStore.persist.rehydrate();
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
