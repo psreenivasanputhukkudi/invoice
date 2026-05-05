@@ -85,7 +85,6 @@ export function InvoiceForm() {
             <Label htmlFor="senderPhone" className="text-xs">Phone</Label>
             <Input
               id="senderPhone"
-              placeholder="+1 (555) 000-0000"
               value={store.senderPhone}
               onChange={(e) => store.updateField('senderPhone', e.target.value)}
               className="h-9 text-sm"
@@ -159,7 +158,6 @@ export function InvoiceForm() {
             <Label htmlFor="clientPhone" className="text-xs">Phone</Label>
             <Input
               id="clientPhone"
-              placeholder="+1 (555) 000-0000"
               value={store.clientPhone}
               onChange={(e) => store.updateField('clientPhone', e.target.value)}
               className="h-9 text-sm"
