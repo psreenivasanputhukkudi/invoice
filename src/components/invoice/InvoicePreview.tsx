@@ -24,189 +24,485 @@ export const InvoicePreview = forwardRef<HTMLDivElement>(function InvoicePreview
     }
   };
 
+  const hasValidItems = store.items.some((item) => item.description.trim() && item.unitPrice > 0);
+
   return (
     <div
       ref={ref}
       id="invoice-preview"
-      className="bg-white text-gray-900 w-full max-w-[210mm] mx-auto shadow-lg"
-      style={{ fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" }}
+      className="w-full max-w-[210mm] mx-auto shadow-2xl overflow-hidden"
+      style={{
+        fontFamily: "'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif",
+        background: '#ffffff',
+      }}
     >
-      <div className="p-8 sm:p-10">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start gap-6 mb-10">
-          {/* Sender */}
-          <div className="flex gap-4 items-start">
-            {store.senderLogo && (
-              <img
-                src={store.senderLogo}
-                alt="Sender Logo"
-                className="h-16 w-16 rounded-lg object-contain border border-gray-200 p-1"
-              />
+      {/* Top Accent Bar */}
+      <div
+        style={{
+          height: '6px',
+          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #059669 100%)',
+        }}
+      />
+
+      <div className="px-8 sm:px-10 py-8 sm:py-10">
+        {/* ── Header: Logo + Invoice Badge ── */}
+        <div className="flex justify-between items-start mb-10">
+          {/* Sender Info */}
+          <div className="flex gap-4 items-start flex-1 min-w-0">
+            {store.senderLogo ? (
+              <div
+                className="shrink-0 flex items-center justify-center"
+                style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '14px',
+                  background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+                  border: '1px solid #e2e8f0',
+                  padding: '6px',
+                }}
+              >
+                <img
+                  src={store.senderLogo}
+                  alt="Logo"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            ) : (
+              <div
+                className="shrink-0 flex items-center justify-center"
+                style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '14px',
+                  background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+                }}
+              >
+                <span style={{ color: '#fff', fontSize: '18px', fontWeight: 800 }}>
+                  {(store.senderName || 'CO').charAt(0).toUpperCase()}
+                </span>
+              </div>
             )}
-            <div>
-              {store.senderName && (
-                <h2 className="text-lg font-bold text-gray-900">{store.senderName}</h2>
-              )}
-              {store.senderAddress && (
-                <p className="text-sm text-gray-500 mt-0.5 whitespace-pre-line">{store.senderAddress}</p>
-              )}
+            <div className="min-w-0">
+              <h2
+                style={{
+                  fontSize: '20px',
+                  fontWeight: 700,
+                  color: '#0f172a',
+                  lineHeight: 1.3,
+                  marginBottom: '2px',
+                }}
+              >
+                {store.senderName || 'Your Company'}
+              </h2>
               {store.senderEmail && (
-                <p className="text-sm text-gray-500">{store.senderEmail}</p>
+                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '1px' }}>
+                  {store.senderEmail}
+                </p>
               )}
               {store.senderPhone && (
-                <p className="text-sm text-gray-500">{store.senderPhone}</p>
+                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '1px' }}>
+                  {store.senderPhone}
+                </p>
+              )}
+              {store.senderAddress && (
+                <p
+                  style={{
+                    fontSize: '12px',
+                    color: '#94a3b8',
+                    lineHeight: 1.5,
+                    whiteSpace: 'pre-line',
+                    marginTop: '4px',
+                  }}
+                >
+                  {store.senderAddress}
+                </p>
               )}
             </div>
           </div>
 
-          {/* Invoice Title & Client */}
-          <div className="flex flex-col items-end gap-3">
-            <h1 className="text-3xl font-black tracking-tight text-gray-900">INVOICE</h1>
-            <div className="text-right">
-              <div className="flex gap-6 text-sm">
-                <div>
-                  <span className="text-gray-400 text-xs uppercase tracking-wide">Invoice #</span>
-                  <p className="font-semibold text-gray-900">{store.invoiceNumber}</p>
-                </div>
-                <div>
-                  <span className="text-gray-400 text-xs uppercase tracking-wide">Date</span>
-                  <p className="font-semibold text-gray-900">{formatDate(store.invoiceDate)}</p>
-                </div>
-                <div>
-                  <span className="text-gray-400 text-xs uppercase tracking-wide">Due Date</span>
-                  <p className="font-semibold text-gray-900">{formatDate(store.dueDate)}</p>
-                </div>
-              </div>
+          {/* Invoice Badge */}
+          <div className="text-right shrink-0 ml-6">
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '8px 18px',
+                borderRadius: '100px',
+                background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+                color: '#fff',
+                fontSize: '13px',
+                fontWeight: 700,
+                letterSpacing: '1.5px',
+                textTransform: 'uppercase',
+              }}
+            >
+              <span
+                style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  background: '#059669',
+                  display: 'inline-block',
+                }}
+              />
+              Invoice
             </div>
+            <p
+              style={{
+                fontSize: '28px',
+                fontWeight: 800,
+                color: '#0f172a',
+                marginTop: '12px',
+                letterSpacing: '-0.5px',
+              }}
+            >
+              {store.invoiceNumber || 'INV-0001'}
+            </p>
           </div>
         </div>
 
-        {/* Bill To */}
-        <div className="mb-10">
-          <h3 className="text-xs uppercase tracking-widest text-gray-400 font-semibold mb-2">Bill To</h3>
-          <div className="flex gap-4 items-start">
-            {store.clientLogo && (
-              <img
-                src={store.clientLogo}
-                alt="Client Logo"
-                className="h-12 w-12 rounded-lg object-contain border border-gray-200 p-1"
-              />
-            )}
+        {/* ── Date Row ── */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '16px',
+            marginBottom: '32px',
+            padding: '16px 20px',
+            borderRadius: '12px',
+            background: '#f8fafc',
+            border: '1px solid #f1f5f9',
+          }}
+        >
+          <div>
+            <p style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: 600, marginBottom: '4px' }}>
+              Invoice Date
+            </p>
+            <p style={{ fontSize: '14px', fontWeight: 600, color: '#334155' }}>
+              {formatDate(store.invoiceDate)}
+            </p>
+          </div>
+          <div>
+            <p style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: 600, marginBottom: '4px' }}>
+              Due Date
+            </p>
+            <p style={{ fontSize: '14px', fontWeight: 600, color: '#334155' }}>
+              {formatDate(store.dueDate)}
+            </p>
+          </div>
+          <div>
+            <p style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: 600, marginBottom: '4px' }}>
+              Amount Due
+            </p>
+            <p style={{ fontSize: '14px', fontWeight: 700, color: '#059669' }}>
+              {formatCurrency(store.grandTotal)}
+            </p>
+          </div>
+        </div>
+
+        {/* ── Bill To Section ── */}
+        <div style={{ marginBottom: '32px' }}>
+          <p
+            style={{
+              fontSize: '11px',
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              fontWeight: 700,
+              marginBottom: '10px',
+            }}
+          >
+            Bill To
+          </p>
+          <div className="flex gap-3 items-start">
+            {store.clientLogo ? (
+              <div
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '10px',
+                  background: '#f8fafc',
+                  border: '1px solid #e2e8f0',
+                  padding: '4px',
+                  shrink: 0,
+                }}
+              >
+                <img src={store.clientLogo} alt="Client" className="w-full h-full object-contain" />
+              </div>
+            ) : null}
             <div>
-              {store.clientName && (
-                <p className="text-base font-bold text-gray-900">{store.clientName}</p>
-              )}
-              {store.clientAddress && (
-                <p className="text-sm text-gray-500 mt-0.5 whitespace-pre-line">{store.clientAddress}</p>
-              )}
+              <p style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', marginBottom: '2px' }}>
+                {store.clientName || 'Client Name'}
+              </p>
               {store.clientEmail && (
-                <p className="text-sm text-gray-500">{store.clientEmail}</p>
+                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '1px' }}>
+                  {store.clientEmail}
+                </p>
               )}
               {store.clientPhone && (
-                <p className="text-sm text-gray-500">{store.clientPhone}</p>
+                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '1px' }}>
+                  {store.clientPhone}
+                </p>
+              )}
+              {store.clientAddress && (
+                <p
+                  style={{
+                    fontSize: '12px',
+                    color: '#94a3b8',
+                    lineHeight: 1.5,
+                    whiteSpace: 'pre-line',
+                    marginTop: '4px',
+                  }}
+                >
+                  {store.clientAddress}
+                </p>
               )}
             </div>
           </div>
         </div>
 
-        {/* Items Table */}
-        <div className="mb-8">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b-2 border-gray-200">
-                <th className="text-left py-3 text-xs uppercase tracking-widest text-gray-400 font-semibold">
-                  Description
-                </th>
-                <th className="text-center py-3 text-xs uppercase tracking-widest text-gray-400 font-semibold w-20">
-                  Qty
-                </th>
-                <th className="text-right py-3 text-xs uppercase tracking-widest text-gray-400 font-semibold w-32">
-                  Unit Price
-                </th>
-                <th className="text-right py-3 text-xs uppercase tracking-widest text-gray-400 font-semibold w-32">
-                  Total
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {store.items.map((item, index) => (
-                <tr
+        {/* ── Items Table ── */}
+        <div style={{ marginBottom: '28px' }}>
+          <div
+            style={{
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Table Header */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 72px 110px 110px',
+                gap: '0',
+                padding: '12px 20px',
+                background: '#f8fafc',
+                borderBottom: '1px solid #e2e8f0',
+              }}
+            >
+              <span style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: 700 }}>
+                Item
+              </span>
+              <span style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: 700, textAlign: 'center' }}>
+                Qty
+              </span>
+              <span style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: 700, textAlign: 'right' }}>
+                Price
+              </span>
+              <span style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: 700, textAlign: 'right' }}>
+                Total
+              </span>
+            </div>
+
+            {/* Table Body */}
+            {store.items.map((item, index) => {
+              const isLast = index === store.items.length - 1;
+              return (
+                <div
                   key={item.id}
-                  className={`border-b border-gray-100 ${
-                    index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'
-                  }`}
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 72px 110px 110px',
+                    gap: '0',
+                    padding: '14px 20px',
+                    background: index % 2 === 0 ? '#ffffff' : '#fafbfc',
+                    borderBottom: isLast ? 'none' : '1px solid #f1f5f9',
+                  }}
                 >
-                  <td className="py-3 text-gray-700">{item.description || '—'}</td>
-                  <td className="py-3 text-center text-gray-700">{item.quantity}</td>
-                  <td className="py-3 text-right text-gray-700">
+                  <span style={{ fontSize: '14px', color: item.description ? '#334155' : '#cbd5e1' }}>
+                    {item.description || 'Item description'}
+                  </span>
+                  <span style={{ fontSize: '14px', color: '#475569', textAlign: 'center' }}>
+                    {item.quantity}
+                  </span>
+                  <span style={{ fontSize: '14px', color: '#475569', textAlign: 'right' }}>
                     {formatCurrency(item.unitPrice)}
-                  </td>
-                  <td className="py-3 text-right font-semibold text-gray-900">
+                  </span>
+                  <span style={{ fontSize: '14px', color: '#0f172a', textAlign: 'right', fontWeight: 600 }}>
                     {formatCurrency(item.quantity * item.unitPrice)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Summary */}
-        <div className="flex justify-end mb-10">
-          <div className="w-full sm:w-72 space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Subtotal</span>
-              <span className="font-medium text-gray-900">{formatCurrency(store.subtotal)}</span>
+        {/* ── Summary ── */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginBottom: '32px',
+          }}
+        >
+          <div style={{ width: '280px' }}>
+            {/* Subtotal */}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                padding: '10px 0',
+                borderBottom: '1px solid #f1f5f9',
+              }}
+            >
+              <span style={{ fontSize: '14px', color: '#64748b' }}>Subtotal</span>
+              <span style={{ fontSize: '14px', fontWeight: 500, color: '#334155' }}>
+                {formatCurrency(store.subtotal)}
+              </span>
             </div>
+
+            {/* Tax */}
             {store.taxRate > 0 && (
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Tax ({store.taxRate}%)</span>
-                <span className="font-medium text-gray-900">{formatCurrency(store.taxAmount)}</span>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '10px 0',
+                  borderBottom: '1px solid #f1f5f9',
+                }}
+              >
+                <span style={{ fontSize: '14px', color: '#64748b' }}>Tax ({store.taxRate}%)</span>
+                <span style={{ fontSize: '14px', fontWeight: 500, color: '#334155' }}>
+                  {formatCurrency(store.taxAmount)}
+                </span>
               </div>
             )}
+
+            {/* Discount */}
             {store.discount > 0 && (
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Discount</span>
-                <span className="font-medium text-red-600">-{formatCurrency(store.discountAmount)}</span>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '10px 0',
+                  borderBottom: '1px solid #f1f5f9',
+                }}
+              >
+                <span style={{ fontSize: '14px', color: '#64748b' }}>Discount</span>
+                <span style={{ fontSize: '14px', fontWeight: 500, color: '#ef4444' }}>
+                  -{formatCurrency(store.discountAmount)}
+                </span>
               </div>
             )}
-            <div className="border-t-2 border-gray-900 pt-2 flex justify-between">
-              <span className="text-base font-bold text-gray-900">Grand Total</span>
-              <span className="text-base font-bold text-gray-900">
+
+            {/* Grand Total */}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '16px 20px',
+                marginTop: '8px',
+                borderRadius: '12px',
+                background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+              }}
+            >
+              <span style={{ fontSize: '15px', fontWeight: 700, color: '#e2e8f0' }}>
+                Total
+              </span>
+              <span style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.5px' }}>
                 {formatCurrency(store.grandTotal)}
               </span>
             </div>
           </div>
         </div>
 
-        {/* Notes & Terms */}
+        {/* ── Notes & Terms ── */}
         {(store.notes || store.paymentTerms || store.bankDetails) && (
-          <div className="border-t border-gray-200 pt-6 space-y-4">
-            {store.paymentTerms && (
-              <div>
-                <h4 className="text-xs uppercase tracking-widest text-gray-400 font-semibold mb-1">
-                  Payment Terms
-                </h4>
-                <p className="text-sm text-gray-600 whitespace-pre-line">{store.paymentTerms}</p>
-              </div>
-            )}
+          <div
+            style={{
+              borderTop: '1px solid #e2e8f0',
+              paddingTop: '24px',
+              display: 'grid',
+              gridTemplateColumns: store.bankDetails ? '1fr 1fr' : '1fr',
+              gap: '24px',
+            }}
+          >
+            {/* Left column: Terms + Notes */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {store.paymentTerms && (
+                <div>
+                  <p
+                    style={{
+                      fontSize: '11px',
+                      color: '#94a3b8',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1px',
+                      fontWeight: 700,
+                      marginBottom: '6px',
+                    }}
+                  >
+                    Payment Terms
+                  </p>
+                  <p style={{ fontSize: '13px', color: '#64748b', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+                    {store.paymentTerms}
+                  </p>
+                </div>
+              )}
+              {store.notes && (
+                <div>
+                  <p
+                    style={{
+                      fontSize: '11px',
+                      color: '#94a3b8',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1px',
+                      fontWeight: 700,
+                      marginBottom: '6px',
+                    }}
+                  >
+                    Notes
+                  </p>
+                  <p style={{ fontSize: '13px', color: '#64748b', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+                    {store.notes}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Right column: Bank Details */}
             {store.bankDetails && (
               <div>
-                <h4 className="text-xs uppercase tracking-widest text-gray-400 font-semibold mb-1">
+                <p
+                  style={{
+                    fontSize: '11px',
+                    color: '#94a3b8',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    fontWeight: 700,
+                    marginBottom: '6px',
+                  }}
+                >
                   Bank Details
-                </h4>
-                <p className="text-sm text-gray-600 whitespace-pre-line">{store.bankDetails}</p>
-              </div>
-            )}
-            {store.notes && (
-              <div>
-                <h4 className="text-xs uppercase tracking-widest text-gray-400 font-semibold mb-1">
-                  Notes
-                </h4>
-                <p className="text-sm text-gray-600 whitespace-pre-line">{store.notes}</p>
+                </p>
+                <p style={{ fontSize: '13px', color: '#64748b', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+                  {store.bankDetails}
+                </p>
               </div>
             )}
           </div>
         )}
+      </div>
+
+      {/* ── Footer ── */}
+      <div
+        style={{
+          padding: '20px 40px',
+          background: '#f8fafc',
+          borderTop: '1px solid #f1f5f9',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <p style={{ fontSize: '12px', color: '#94a3b8' }}>
+          Thank you for your business
+        </p>
+        <p style={{ fontSize: '11px', color: '#cbd5e1' }}>
+          {store.invoiceNumber}
+        </p>
       </div>
     </div>
   );

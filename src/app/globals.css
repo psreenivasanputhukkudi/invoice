@@ -151,8 +151,13 @@
     top: 0;
     width: 100%;
     box-shadow: none !important;
+    margin: 0;
+    max-width: none;
   }
-  header {
+  header,
+  .sticky,
+  [role="tablist"],
+  [data-slot="tabs-content"] {
     display: none !important;
   }
   @page {

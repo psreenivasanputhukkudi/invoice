@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useCallback } from 'react';
-import { Download, Printer, RotateCcw, Moon, Sun } from 'lucide-react';
+import { Download, Printer, RotateCcw, Moon, Sun, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
 import { toast } from 'sonner';
@@ -36,7 +36,7 @@ export function InvoiceHeader({ previewRef }: InvoiceHeaderProps) {
     if (!validateBeforeExport()) return;
     if (!previewRef.current) {
       toast.error('Preview element not found');
-      return;
+      return false;
     }
 
     toast.loading('Generating PDF...', { id: 'pdf-export' });
@@ -61,30 +61,46 @@ export function InvoiceHeader({ previewRef }: InvoiceHeaderProps) {
   }, [resetInvoice]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-3">
-        <div className="flex items-center justify-between gap-3">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between gap-3 h-14">
+          {/* Logo + Title */}
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-lg bg-emerald-600 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">IN</span>
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-lg font-bold text-foreground leading-tight">
-                  Invoice Generator
-                </h1>
-                <p className="text-xs text-muted-foreground">
-                  Create professional invoices
-                </p>
-              </div>
+            <div
+              className="flex items-center justify-center shrink-0"
+              style={{
+                width: '34px',
+                height: '34px',
+                borderRadius: '10px',
+                background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+              }}
+            >
+              <FileText className="text-white" style={{ width: '16px', height: '16px' }} />
+            </div>
+            <div className="hidden sm:block">
+              <h1
+                className="leading-tight"
+                style={{
+                  fontSize: '15px',
+                  fontWeight: 700,
+                  color: 'var(--foreground)',
+                  letterSpacing: '-0.3px',
+                }}
+              >
+                Invoice Generator
+              </h1>
+              <p style={{ fontSize: '11px', color: 'var(--muted-foreground)', marginTop: '-1px' }}>
+                Create professional invoices
+              </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Actions */}
+          <div className="flex items-center gap-1.5">
             <Button
               variant="ghost"
               size="icon"
-              className="h-9 w-9"
+              className="h-8 w-8 rounded-lg"
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               aria-label="Toggle theme"
             >
@@ -92,53 +108,76 @@ export function InvoiceHeader({ previewRef }: InvoiceHeaderProps) {
               <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             </Button>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              className="hidden sm:inline-flex h-9 text-muted-foreground hover:text-destructive"
-              onClick={handleReset}
-            >
-              <RotateCcw className="mr-1.5 h-4 w-4" />
-              Reset
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="sm:hidden h-9 w-9 text-muted-foreground hover:text-destructive"
-              onClick={handleReset}
-              aria-label="Reset"
-            >
-              <RotateCcw className="h-4 w-4" />
-            </Button>
+            <div className="hidden sm:flex items-center gap-1 ml-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 rounded-lg text-xs text-muted-foreground hover:text-destructive px-3"
+                onClick={handleReset}
+              >
+                <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
+                Reset
+              </Button>
 
-            <Button
-              variant="outline"
-              size="sm"
-              className="hidden sm:inline-flex h-9"
-              onClick={handlePrint}
-            >
-              <Printer className="mr-1.5 h-4 w-4" />
-              Print
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              className="sm:hidden h-9 w-9"
-              onClick={handlePrint}
-              aria-label="Print"
-            >
-              <Printer className="h-4 w-4" />
-            </Button>
+              <div className="w-px h-5 bg-border mx-1" />
 
-            <Button
-              size="sm"
-              className="h-9 bg-emerald-600 hover:bg-emerald-700 text-white"
-              onClick={handleDownloadPDF}
-            >
-              <Download className="mr-1.5 h-4 w-4" />
-              <span className="hidden sm:inline">Download PDF</span>
-              <span className="sm:hidden">PDF</span>
-            </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 rounded-lg text-xs px-3"
+                onClick={handlePrint}
+              >
+                <Printer className="mr-1.5 h-3.5 w-3.5" />
+                Print
+              </Button>
+
+              <Button
+                size="sm"
+                className="h-8 rounded-lg text-xs px-4 text-white"
+                style={{
+                  background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+                  border: 'none',
+                }}
+                onClick={handleDownloadPDF}
+              >
+                <Download className="mr-1.5 h-3.5 w-3.5" />
+                Download PDF
+              </Button>
+            </div>
+
+            {/* Mobile actions */}
+            <div className="flex sm:hidden items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 rounded-lg text-muted-foreground hover:text-destructive"
+                onClick={handleReset}
+                aria-label="Reset"
+              >
+                <RotateCcw className="h-3.5 w-3.5" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 rounded-lg"
+                onClick={handlePrint}
+                aria-label="Print"
+              >
+                <Printer className="h-3.5 w-3.5" />
+              </Button>
+              <Button
+                size="icon"
+                className="h-8 w-8 rounded-lg text-white"
+                style={{
+                  background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+                  border: 'none',
+                }}
+                onClick={handleDownloadPDF}
+                aria-label="Download PDF"
+              >
+                <Download className="h-3.5 w-3.5" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>

@@ -44,35 +44,53 @@ export function LogoUpload({ logo, onLogoChange, label }: LogoUploadProps) {
   };
 
   return (
-    <div className="space-y-2">
-      <label className="text-sm font-medium text-foreground">{label}</label>
+    <div className="space-y-1.5">
+      <label className="text-xs font-medium text-muted-foreground">{label}</label>
       <div className="flex items-center gap-3">
         {logo ? (
           <div className="relative group">
-            <img
-              src={logo}
-              alt="Logo"
-              className="h-16 w-16 rounded-lg border border-border object-contain bg-white p-1"
-            />
+            <div
+              style={{
+                width: '52px',
+                height: '52px',
+                borderRadius: '12px',
+                background: '#f8fafc',
+                border: '1px solid #e2e8f0',
+                padding: '4px',
+              }}
+            >
+              <img
+                src={logo}
+                alt="Logo"
+                className="w-full h-full object-contain"
+              />
+            </div>
             <Button
               type="button"
-              variant="destructive"
               size="icon"
-              className="absolute -top-2 -right-2 h-5 w-5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity bg-red-500 hover:bg-red-600 text-white border-2 border-white"
               onClick={handleRemove}
             >
-              <X className="h-3 w-3" />
+              <X className="h-2.5 w-2.5" />
             </Button>
           </div>
         ) : (
-          <Button
+          <button
             type="button"
-            variant="outline"
-            className="h-16 w-16 rounded-lg border-dashed"
+            className="flex items-center justify-center rounded-xl border-2 border-dashed transition-all hover:border-foreground/30 hover:bg-muted/50"
+            style={{
+              width: '52px',
+              height: '52px',
+              borderColor: 'var(--border)',
+              background: 'transparent',
+              cursor: 'pointer',
+            }}
             onClick={() => inputRef.current?.click()}
           >
-            <ImagePlus className="h-6 w-6 text-muted-foreground" />
-          </Button>
+            <ImagePlus
+              style={{ width: '20px', height: '20px', color: 'var(--muted-foreground)' }}
+            />
+          </button>
         )}
         <input
           ref={inputRef}

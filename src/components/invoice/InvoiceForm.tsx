@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { LogoUpload } from './LogoUpload';
 import { LineItemsTable } from './LineItemsTable';
-import { DollarSign, Percent, Tag } from 'lucide-react';
+import { DollarSign, Percent, Tag, Building2, UserCircle, FileText, Receipt, StickyNote, Landmark } from 'lucide-react';
 
 export function InvoiceForm() {
   const store = useInvoiceStore();
@@ -22,13 +22,28 @@ export function InvoiceForm() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Sender Details */}
-      <Card>
+      <Card className="overflow-hidden">
         <CardHeader className="pb-4">
-          <CardTitle className="text-base">From (Sender)</CardTitle>
+          <div className="flex items-center gap-2.5">
+            <div
+              className="flex items-center justify-center shrink-0"
+              style={{
+                width: '30px',
+                height: '30px',
+                borderRadius: '8px',
+                background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+              }}
+            >
+              <Building2 className="text-white" style={{ width: '14px', height: '14px' }} />
+            </div>
+            <div>
+              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>From (Sender)</CardTitle>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 pt-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <LogoUpload
               logo={store.senderLogo}
@@ -38,54 +53,73 @@ export function InvoiceForm() {
             <div className="sm:col-span-1" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="senderName">Company Name</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="senderName" className="text-xs font-medium">Company Name</Label>
               <Input
                 id="senderName"
                 placeholder="Your Company Name"
                 value={store.senderName}
                 onChange={(e) => store.updateField('senderName', e.target.value)}
+                className="h-9 text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="senderEmail">Email</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="senderEmail" className="text-xs font-medium">Email</Label>
               <Input
                 id="senderEmail"
                 type="email"
                 placeholder="email@company.com"
                 value={store.senderEmail}
                 onChange={(e) => store.updateField('senderEmail', e.target.value)}
+                className="h-9 text-sm"
               />
             </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="senderAddress">Address</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="senderAddress" className="text-xs font-medium">Address</Label>
             <Textarea
               id="senderAddress"
               placeholder="Full address..."
               value={store.senderAddress}
               onChange={(e) => store.updateField('senderAddress', e.target.value)}
               rows={2}
+              className="text-sm"
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="senderPhone">Phone</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="senderPhone" className="text-xs font-medium">Phone</Label>
             <Input
               id="senderPhone"
               placeholder="+1 (555) 000-0000"
               value={store.senderPhone}
               onChange={(e) => store.updateField('senderPhone', e.target.value)}
+              className="h-9 text-sm"
             />
           </div>
         </CardContent>
       </Card>
 
       {/* Client Details */}
-      <Card>
+      <Card className="overflow-hidden">
         <CardHeader className="pb-4">
-          <CardTitle className="text-base">Bill To (Client)</CardTitle>
+          <div className="flex items-center gap-2.5">
+            <div
+              className="flex items-center justify-center shrink-0"
+              style={{
+                width: '30px',
+                height: '30px',
+                borderRadius: '8px',
+                background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+              }}
+            >
+              <UserCircle className="text-white" style={{ width: '14px', height: '14px' }} />
+            </div>
+            <div>
+              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>Bill To (Client)</CardTitle>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 pt-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <LogoUpload
               logo={store.clientLogo}
@@ -95,86 +129,108 @@ export function InvoiceForm() {
             <div className="sm:col-span-1" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="clientName">Client Name</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="clientName" className="text-xs font-medium">Client Name</Label>
               <Input
                 id="clientName"
                 placeholder="Client Company Name"
                 value={store.clientName}
                 onChange={(e) => store.updateField('clientName', e.target.value)}
+                className="h-9 text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="clientEmail">Email</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="clientEmail" className="text-xs font-medium">Email</Label>
               <Input
                 id="clientEmail"
                 type="email"
                 placeholder="client@email.com"
                 value={store.clientEmail}
                 onChange={(e) => store.updateField('clientEmail', e.target.value)}
+                className="h-9 text-sm"
               />
             </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="clientAddress">Address</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="clientAddress" className="text-xs font-medium">Address</Label>
             <Textarea
               id="clientAddress"
               placeholder="Client address..."
               value={store.clientAddress}
               onChange={(e) => store.updateField('clientAddress', e.target.value)}
               rows={2}
+              className="text-sm"
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="clientPhone">Phone</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="clientPhone" className="text-xs font-medium">Phone</Label>
             <Input
               id="clientPhone"
               placeholder="+1 (555) 000-0000"
               value={store.clientPhone}
               onChange={(e) => store.updateField('clientPhone', e.target.value)}
+              className="h-9 text-sm"
             />
           </div>
         </CardContent>
       </Card>
 
       {/* Invoice Metadata */}
-      <Card>
+      <Card className="overflow-hidden">
         <CardHeader className="pb-4">
-          <CardTitle className="text-base">Invoice Details</CardTitle>
+          <div className="flex items-center gap-2.5">
+            <div
+              className="flex items-center justify-center shrink-0"
+              style={{
+                width: '30px',
+                height: '30px',
+                borderRadius: '8px',
+                background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
+              }}
+            >
+              <FileText className="text-white" style={{ width: '14px', height: '14px' }} />
+            </div>
+            <div>
+              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>Invoice Details</CardTitle>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 pt-0">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="invoiceNumber">Invoice Number</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="invoiceNumber" className="text-xs font-medium">Invoice Number</Label>
               <Input
                 id="invoiceNumber"
                 value={store.invoiceNumber}
                 onChange={(e) => store.updateField('invoiceNumber', e.target.value)}
+                className="h-9 text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="invoiceDate">Invoice Date</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="invoiceDate" className="text-xs font-medium">Invoice Date</Label>
               <Input
                 id="invoiceDate"
                 type="date"
                 value={store.invoiceDate}
                 onChange={(e) => store.updateField('invoiceDate', e.target.value)}
+                className="h-9 text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="dueDate">Due Date</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="dueDate" className="text-xs font-medium">Due Date</Label>
               <Input
                 id="dueDate"
                 type="date"
                 value={store.dueDate}
                 onChange={(e) => store.updateField('dueDate', e.target.value)}
+                className="h-9 text-sm"
               />
             </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="currency">Currency</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="currency" className="text-xs font-medium">Currency</Label>
             <div className="relative">
-              <Tag className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Tag className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
               <select
                 id="currency"
                 value={store.currency}
@@ -196,22 +252,55 @@ export function InvoiceForm() {
       </Card>
 
       {/* Line Items */}
-      <Card>
-        <CardContent className="pt-6">
+      <Card className="overflow-hidden">
+        <CardHeader className="pb-4">
+          <div className="flex items-center gap-2.5">
+            <div
+              className="flex items-center justify-center shrink-0"
+              style={{
+                width: '30px',
+                height: '30px',
+                borderRadius: '8px',
+                background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+              }}
+            >
+              <Receipt className="text-white" style={{ width: '14px', height: '14px' }} />
+            </div>
+            <div>
+              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>Line Items</CardTitle>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="pt-0">
           <LineItemsTable />
         </CardContent>
       </Card>
 
       {/* Financial Summary */}
-      <Card>
+      <Card className="overflow-hidden">
         <CardHeader className="pb-4">
-          <CardTitle className="text-base">Financial Summary</CardTitle>
+          <div className="flex items-center gap-2.5">
+            <div
+              className="flex items-center justify-center shrink-0"
+              style={{
+                width: '30px',
+                height: '30px',
+                borderRadius: '8px',
+                background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+              }}
+            >
+              <DollarSign className="text-white" style={{ width: '14px', height: '14px' }} />
+            </div>
+            <div>
+              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>Financial Summary</CardTitle>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 pt-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="taxRate">
-                <Percent className="inline h-3.5 w-3.5 mr-1" />
+            <div className="space-y-1.5">
+              <Label htmlFor="taxRate" className="text-xs font-medium">
+                <Percent className="inline h-3 w-3 mr-1" />
                 Tax Rate (%)
               </Label>
               <Input
@@ -225,12 +314,13 @@ export function InvoiceForm() {
                 onChange={(e) =>
                   store.updateField('taxRate', parseFloat(e.target.value) || 0)
                 }
+                className="h-9 text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="discount">
-                <DollarSign className="inline h-3.5 w-3.5 mr-1" />
-                Discount (Flat Amount)
+            <div className="space-y-1.5">
+              <Label htmlFor="discount" className="text-xs font-medium">
+                <DollarSign className="inline h-3 w-3 mr-1" />
+                Discount (Flat)
               </Label>
               <Input
                 id="discount"
@@ -242,13 +332,19 @@ export function InvoiceForm() {
                 onChange={(e) =>
                   store.updateField('discount', parseFloat(e.target.value) || 0)
                 }
+                className="h-9 text-sm"
               />
             </div>
           </div>
 
-          <Separator />
-
-          <div className="space-y-2 bg-muted/30 rounded-lg p-4">
+          <div
+            className="space-y-2 p-4"
+            style={{
+              borderRadius: '12px',
+              background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
+              border: '1px solid #e2e8f0',
+            }}
+          >
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Subtotal</span>
               <span className="font-medium">{formatCurrency(store.subtotal)}</span>
@@ -268,48 +364,74 @@ export function InvoiceForm() {
               </div>
             )}
             <Separator />
-            <div className="flex justify-between text-base font-bold">
-              <span>Grand Total</span>
-              <span>{formatCurrency(store.grandTotal)}</span>
+            <div className="flex justify-between items-center pt-1">
+              <span className="text-base font-bold">Grand Total</span>
+              <span
+                className="text-lg font-extrabold"
+                style={{ letterSpacing: '-0.5px' }}
+              >
+                {formatCurrency(store.grandTotal)}
+              </span>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Notes & Terms */}
-      <Card>
+      <Card className="overflow-hidden">
         <CardHeader className="pb-4">
-          <CardTitle className="text-base">Notes & Terms</CardTitle>
+          <div className="flex items-center gap-2.5">
+            <div
+              className="flex items-center justify-center shrink-0"
+              style={{
+                width: '30px',
+                height: '30px',
+                borderRadius: '8px',
+                background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
+              }}
+            >
+              <StickyNote className="text-white" style={{ width: '14px', height: '14px' }} />
+            </div>
+            <div>
+              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>Notes & Terms</CardTitle>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="paymentTerms">Payment Terms</Label>
+        <CardContent className="space-y-4 pt-0">
+          <div className="space-y-1.5">
+            <Label htmlFor="paymentTerms" className="text-xs font-medium">Payment Terms</Label>
             <Textarea
               id="paymentTerms"
               placeholder="Payment terms..."
               value={store.paymentTerms}
               onChange={(e) => store.updateField('paymentTerms', e.target.value)}
               rows={2}
+              className="text-sm"
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="bankDetails">Bank Details</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="bankDetails" className="text-xs font-medium">
+              <Landmark className="inline h-3 w-3 mr-1" />
+              Bank Details
+            </Label>
             <Textarea
               id="bankDetails"
               placeholder="Bank name, account number, routing number..."
               value={store.bankDetails}
               onChange={(e) => store.updateField('bankDetails', e.target.value)}
               rows={2}
+              className="text-sm"
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="notes">Notes</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="notes" className="text-xs font-medium">Notes</Label>
             <Textarea
               id="notes"
               placeholder="Additional notes..."
               value={store.notes}
               onChange={(e) => store.updateField('notes', e.target.value)}
               rows={2}
+              className="text-sm"
             />
           </div>
         </CardContent>
