@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
 import { JsonLdScript } from "@/components/seo/JsonLdScript";
-import { getOrganizationSchema, getWebApplicationSchema } from "@/lib/seo-schemas";
+import { getOrganizationSchema } from "@/lib/seo-schemas";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,45 +26,7 @@ export const metadata: Metadata = {
   },
   description:
     "Free online invoice generator — create, customize, and download professional invoices as PDF instantly. Multiple templates, multi-currency support, no sign-up required. Built for freelancers, small businesses, and entrepreneurs.",
-  keywords: [
-    "invoice generator",
-    "free invoice maker",
-    "create invoice online",
-    "professional invoice template",
-    "PDF invoice creator",
-    "billing software",
-    "invoice generator free",
-    "online invoice tool",
-    "make invoice PDF",
-    "download invoice PDF",
-    "invoice template",
-    "custom invoice",
-    "small business invoice",
-    "freelancer invoice",
-    "invoice maker",
-    "generate invoice",
-    "invoice creator online",
-    "free billing tool",
-    "printable invoice",
-    "A4 invoice PDF",
-    "invoice with logo",
-    "multi currency invoice",
-    "tax invoice generator",
-    "GST invoice maker",
-    "VAT invoice template",
-    "proforma invoice",
-    "commercial invoice",
-    "receipt generator",
-    "quote generator",
-    "billing invoice app",
-    "fast invoice maker",
-    "no signup invoice",
-    "browser invoice tool",
-    "instant invoice download",
-    "invoice best practices",
-    "how to create invoice",
-    "professional billing",
-  ],
+
   authors: [{ name: "Invoice Generator" }],
   creator: "Invoice Generator",
   publisher: "Invoice Generator",
@@ -125,8 +87,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Organization structured data (site-wide) */}
         <JsonLdScript data={getOrganizationSchema()} />
-        {/* WebApplication structured data (home page tool) */}
-        <JsonLdScript data={getWebApplicationSchema()} />
+        {/* WebApplication structured data is rendered on the home page */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}

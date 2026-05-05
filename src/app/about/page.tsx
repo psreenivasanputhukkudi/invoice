@@ -5,23 +5,11 @@ import { JsonLdScript } from '@/components/seo/JsonLdScript';
 import { getFAQSchema, getBreadcrumbSchema, getAboutPageSchema } from '@/lib/seo-schemas';
 
 export const metadata: Metadata = {
-  title: 'About Us - Invoice Generator',
+  title: 'About Us',
   description:
     'Learn about Invoice Generator — a free, fast, and professional online tool to create, customize, and download invoices in PDF format. Built for freelancers, small businesses, and entrepreneurs.',
-  keywords: [
-    'about invoice generator',
-    'free invoice maker',
-    'online invoice tool',
-    'PDF invoice creator',
-    'small business invoicing',
-    'freelancer invoicing',
-    'professional invoice templates',
-    'invoice generator features',
-    'how to create invoices online',
-    'billing software alternative',
-  ],
   openGraph: {
-    title: 'About Us - Invoice Generator',
+    title: 'About Invoice Generator - Free Professional Invoicing Tool',
     description:
       'Discover how Invoice Generator helps freelancers and businesses create professional invoices instantly — free, fast, and no sign-up required.',
     type: 'website',
@@ -36,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Us - Invoice Generator',
+    title: 'About Invoice Generator - Free Professional Invoicing Tool',
     description:
       'Discover how Invoice Generator helps freelancers and businesses create professional invoices instantly — free, fast, and no sign-up required.',
     images: ['/og-about.png'],
@@ -366,7 +354,7 @@ export default function AboutPage() {
               No sign-up. No fees. Just professional invoices in seconds.
             </p>
             <Link
-              href="/"
+              href="/generator"
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
               style={{
                 background: 'linear-gradient(90deg, #059669, #34d399)',
@@ -395,7 +383,7 @@ export default function AboutPage() {
               <Link href="/blog" className="text-[13px] hover:underline" style={{ color: 'var(--muted-foreground)' }}>
                 Blog
               </Link>
-              <Link href="/" className="text-[13px] hover:underline" style={{ color: 'var(--muted-foreground)' }}>
+              <Link href="/generator" className="text-[13px] hover:underline" style={{ color: 'var(--muted-foreground)' }}>
                 Generator
               </Link>
             </div>
