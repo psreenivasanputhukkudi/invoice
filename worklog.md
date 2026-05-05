@@ -101,3 +101,59 @@ Added About page, Blog listing page, 6 individual blog post pages, shared site-w
 - **About page**: 10 targeted keywords (about invoice generator, small business invoicing, freelancer invoicing, etc.)
 - **Blog listing**: 14 keywords (invoice tips, billing best practices, freelancer guide, payment terms, etc.)
 - **Each blog post**: 8 unique keywords per post, OpenGraph article metadata, published dates
+
+---
+
+## SEO Enhancement — Structured Data, Sitemap, Robots.txt
+
+### Date: 2026-05-05
+
+### Summary
+Significantly improved SEO with JSON-LD structured data for Google rich snippets, dynamic sitemap.xml, robots.txt, per-page canonical URLs, og:image metadata, and breadcrumb navigation schemas.
+
+### Files Created
+1. **`src/lib/seo-schemas.ts`** — Centralized JSON-LD schema generators:
+   - `getOrganizationSchema()` — Organization schema with contact info, founding date, knowAbout topics
+   - `getWebApplicationSchema()` — WebApplication schema with pricing (free), aggregate rating (4.8/5), 10 feature list, screenshot/install URL
+   - `getBreadcrumbSchema()` — BreadcrumbList for navigation hierarchy (Home > Blog > Post)
+   - `getFAQSchema()` — FAQPage schema from FAQ question/answer arrays
+   - `getBlogPostingSchema()` — BlogPosting schema with headline, author, publisher, keywords, datePublished
+   - `getBlogCollectionSchema()` — CollectionPage for blog listing with hasPart references
+   - `getAboutPageSchema()` — AboutPage schema with mainEntity Organization
+2. **`src/components/seo/JsonLdScript.tsx`** — Reusable `<script type="application/ld+json">` component
+3. **`src/app/sitemap.ts`** — Dynamic sitemap.xml with all 9 routes, priority weights, and change frequencies
+4. **`src/app/robots.txt`** (app route) — Allow all, disallow /api/, with sitemap reference (replaced conflicting public/robots.txt)
+
+### Files Modified
+1. **`src/app/layout.tsx`** — Added:
+   - `metadataBase` URL for resolving og:image paths
+   - Organization + WebApplication JSON-LD in `<head>`
+   - og:image with 1200x630 dimensions
+2. **`src/app/about/page.tsx`** — Added:
+   - FAQPage + BreadcrumbList + AboutPage JSON-LD schemas
+   - og:image + Twitter card images
+   - canonical URL: `/about`
+3. **`src/app/blog/page.tsx`** — Added:
+   - CollectionPage + BreadcrumbList JSON-LD schemas
+   - og:image + Twitter card images
+   - canonical URL: `/blog`
+4. **`src/app/blog/[slug]/page.tsx`** — Added:
+   - BlogPosting + BreadcrumbList JSON-LD schemas per post
+   - og:image + Twitter card images per post
+   - canonical URLs: `/blog/{slug}`
+
+### JSON-LD Schemas Per Page
+| Page | Schemas |
+|------|---------|
+| Home (/) | Organization, WebApplication |
+| About (/about) | Organization, WebApplication, FAQPage (5 Q&As), BreadcrumbList, AboutPage |
+| Blog (/blog) | Organization, WebApplication, CollectionPage, BreadcrumbList |
+| Blog Post (/blog/[slug]) | Organization, WebApplication, BlogPosting, BreadcrumbList |
+
+### SEO Infrastructure
+- **sitemap.xml**: 9 URLs with priorities (1.0 home, 0.9 blog, 0.8 about, 0.7 posts)
+- **robots.txt**: Allow /, Disallow /api/, sitemap reference
+- **Canonical URLs**: All pages have self-referencing canonical links
+- **og:image**: Every page has 1200x630 image metadata for social sharing
+- **Twitter Cards**: summary_large_image cards on all pages
+- **metadataBase**: Set for proper og:image URL resolution

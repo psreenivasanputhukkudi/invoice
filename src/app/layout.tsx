@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
+import { JsonLdScript } from "@/components/seo/JsonLdScript";
+import { getOrganizationSchema, getWebApplicationSchema } from "@/lib/seo-schemas";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,6 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://preview-be42bd6e-3621-4497-b467-c6ec2d8afa22.space.chatglm.site'
+  ),
   title: {
     default: "Invoice Generator - Create Professional Invoices Online Free",
     template: "%s | Invoice Generator",
@@ -84,16 +89,26 @@ export const metadata: Metadata = {
     title: "Invoice Generator - Create Professional Invoices Online Free",
     description:
       "Free online invoice generator with PDF export, multiple templates, and multi-currency support. No sign-up required. Create your first invoice in under a minute.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Invoice Generator - Create Professional Invoices Online Free",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Invoice Generator - Create Professional Invoices Online Free",
     description:
       "Free online invoice generator with PDF export, multiple templates, and multi-currency support. No sign-up required.",
+    images: ["/og-image.png"],
   },
   alternates: {
     canonical: "/",
   },
+  verification: {},
 };
 
 export default function RootLayout({
@@ -108,6 +123,10 @@ export default function RootLayout({
         <meta name="color-scheme" content="light dark" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Organization structured data (site-wide) */}
+        <JsonLdScript data={getOrganizationSchema()} />
+        {/* WebApplication structured data (home page tool) */}
+        <JsonLdScript data={getWebApplicationSchema()} />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}

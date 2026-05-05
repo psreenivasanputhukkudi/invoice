@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { SiteNav } from '@/components/SiteNav';
 import Link from 'next/link';
+import { JsonLdScript } from '@/components/seo/JsonLdScript';
+import { getFAQSchema, getBreadcrumbSchema, getAboutPageSchema } from '@/lib/seo-schemas';
 
 export const metadata: Metadata = {
   title: 'About Us - Invoice Generator',
@@ -23,6 +25,24 @@ export const metadata: Metadata = {
     description:
       'Discover how Invoice Generator helps freelancers and businesses create professional invoices instantly — free, fast, and no sign-up required.',
     type: 'website',
+    images: [
+      {
+        url: '/og-about.png',
+        width: 1200,
+        height: 630,
+        alt: 'About Invoice Generator - Free Professional Invoicing',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Us - Invoice Generator',
+    description:
+      'Discover how Invoice Generator helps freelancers and businesses create professional invoices instantly — free, fast, and no sign-up required.',
+    images: ['/og-about.png'],
+  },
+  alternates: {
+    canonical: '/about',
   },
 };
 
@@ -103,6 +123,14 @@ const faqs = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {/* Structured Data */}
+      <JsonLdScript data={getFAQSchema(faqs)} />
+      <JsonLdScript data={getBreadcrumbSchema([
+        { name: 'Home', url: '/' },
+        { name: 'About', url: '/about' },
+      ])} />
+      <JsonLdScript data={getAboutPageSchema()} />
+
       <SiteNav />
 
       <main className="flex-1">

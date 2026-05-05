@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { SiteNav } from '@/components/SiteNav';
+import { JsonLdScript } from '@/components/seo/JsonLdScript';
+import { getBlogPostingSchema, getBreadcrumbSchema } from '@/lib/seo-schemas';
 
 interface BlogPostData {
   slug: string;
@@ -209,7 +211,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: post.description,
       type: 'article',
       publishedTime: post.date,
+      modifiedTime: post.date,
       authors: ['Invoice Generator'],
+      url: `/blog/${post.slug}`,
+      images: [
+        {
+          url: `/og-blog-${post.slug}.png`,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: [`/og-blog-${post.slug}.png`],
+    },
+    alternates: {
+      canonical: `/blog/${post.slug}`,
     },
   };
 }
@@ -229,6 +250,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {/* Structured Data */}
+      <JsonLdScript data={getBlogPostingSchema({
+        title: post.title,
+        description: post.description,
+        slug: post.slug,
+        date: post.date,
+        keywords: post.keywords,
+      })} />
+      <JsonLdScript data={getBreadcrumbSchema([
+        { name: 'Home', url: '/' },
+        { name: 'Blog', url: '/blog' },
+        { name: post.title, url: `/blog/${post.slug}` },
+      ])} />
+
       <SiteNav />
 
       <main className="flex-1">

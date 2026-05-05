@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { SiteNav } from '@/components/SiteNav';
 import Link from 'next/link';
+import { JsonLdScript } from '@/components/seo/JsonLdScript';
+import { getBlogCollectionSchema, getBreadcrumbSchema } from '@/lib/seo-schemas';
 
 export const metadata: Metadata = {
   title: 'Blog - Invoice Tips, Guides & Business Billing Advice',
@@ -27,6 +29,24 @@ export const metadata: Metadata = {
     description:
       'Expert articles on invoicing, billing, and financial management for freelancers and small businesses.',
     type: 'website',
+    images: [
+      {
+        url: '/og-blog.png',
+        width: 1200,
+        height: 630,
+        alt: 'Invoice Generator Blog - Tips, Guides & Billing Advice',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog - Invoice Tips, Guides & Business Billing Advice',
+    description:
+      'Expert articles on invoicing, billing, and financial management for freelancers and small businesses.',
+    images: ['/og-blog.png'],
+  },
+  alternates: {
+    canonical: '/blog',
   },
 };
 
@@ -112,8 +132,19 @@ const categoryColors: Record<string, string> = {
 };
 
 export default function BlogPage() {
+  const blogCollectionSchema = getBlogCollectionSchema(
+    blogPosts.map((p) => ({ title: p.title, slug: p.slug, date: p.date, description: p.excerpt }))
+  );
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {/* Structured Data */}
+      <JsonLdScript data={blogCollectionSchema} />
+      <JsonLdScript data={getBreadcrumbSchema([
+        { name: 'Home', url: '/' },
+        { name: 'Blog', url: '/blog' },
+      ])} />
+
       <SiteNav />
 
       <main className="flex-1">
