@@ -21,7 +21,7 @@ export function LineItemsTable() {
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2.5">
       <div className="flex items-center justify-between">
         <p className="text-xs text-muted-foreground">
           {items.filter((i) => i.description.trim()).length} item{items.length !== 1 ? 's' : ''} added
@@ -42,14 +42,14 @@ export function LineItemsTable() {
       <div className="hidden md:block">
         <div
           style={{
-            borderRadius: '12px',
+            borderRadius: '10px',
             border: '1px solid var(--border)',
             overflow: 'hidden',
           }}
         >
           {/* Header */}
           <div
-            className="grid grid-cols-12 gap-0 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide"
+            className="grid grid-cols-12 gap-0 px-3 py-2 text-[11px] font-semibold uppercase tracking-wide"
             style={{
               background: 'var(--muted)',
               color: 'var(--muted-foreground)',
@@ -62,15 +62,15 @@ export function LineItemsTable() {
             <div className="col-span-1" />
           </div>
           {/* Rows */}
-          <div className="max-h-80 overflow-y-auto">
+          <div className="max-h-72 overflow-y-auto">
             {items.map((item, index) => {
               const isLast = index === items.length - 1;
               return (
                 <div
                   key={item.id}
-                  className="grid grid-cols-12 gap-0 items-center px-4 py-2"
+                  className="grid grid-cols-12 gap-0 items-center px-3 py-1.5"
                   style={{
-                    background: index % 2 === 0 ? 'var(--background)' : 'var(--muted)',
+                    background: index % 2 === 0 ? 'var(--background)' : 'var(--card)',
                     borderBottom: isLast ? 'none' : '1px solid var(--border)',
                   }}
                 >
@@ -83,7 +83,7 @@ export function LineItemsTable() {
                       className="h-8 text-sm border-0 shadow-none focus-visible:ring-0 bg-transparent px-0"
                     />
                   </div>
-                  <div className="col-span-2 px-1">
+                  <div className="col-span-2 px-0.5">
                     <Input
                       type="number"
                       min="0"
@@ -95,7 +95,7 @@ export function LineItemsTable() {
                       className="h-8 text-sm text-center border-0 shadow-none focus-visible:ring-0 bg-transparent"
                     />
                   </div>
-                  <div className="col-span-2 px-1">
+                  <div className="col-span-2 px-0.5">
                     <Input
                       type="number"
                       min="0"
@@ -115,11 +115,11 @@ export function LineItemsTable() {
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="h-7 w-7 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                      className="h-7 w-7 rounded-lg text-muted-foreground/60 hover:text-destructive hover:bg-destructive/10"
                       onClick={() => removeItem(item.id)}
                       disabled={items.length <= 1}
                     >
-                      <Trash2 className="h-3.5 w-3.5" />
+                      <Trash2 className="h-3 w-3" />
                     </Button>
                   </div>
                 </div>
@@ -130,11 +130,11 @@ export function LineItemsTable() {
       </div>
 
       {/* Mobile Cards */}
-      <div className="md:hidden space-y-2 max-h-80 overflow-y-auto">
+      <div className="md:hidden space-y-2 max-h-72 overflow-y-auto">
         {items.map((item) => (
           <div
             key={item.id}
-            className="rounded-xl border p-3 space-y-2.5"
+            className="rounded-lg border p-3 space-y-2"
             style={{
               background: 'var(--card)',
               borderColor: 'var(--border)',
@@ -152,11 +152,11 @@ export function LineItemsTable() {
                 type="button"
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 shrink-0 rounded-lg text-muted-foreground hover:text-destructive"
+                className="h-8 w-8 shrink-0 rounded-lg text-muted-foreground/60 hover:text-destructive"
                 onClick={() => removeItem(item.id)}
                 disabled={items.length <= 1}
               >
-                <Trash2 className="h-4 w-4" />
+                <Trash2 className="h-3.5 w-3.5" />
               </Button>
             </div>
             <div className="grid grid-cols-2 gap-2">
@@ -187,8 +187,11 @@ export function LineItemsTable() {
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between pt-1" style={{ borderTop: '1px solid var(--border)' }}>
-              <span className="text-[11px] text-muted-foreground font-medium uppercase tracking-wide">Line Total</span>
+            <div
+              className="flex items-center justify-between pt-1.5"
+              style={{ borderTop: '1px solid var(--border)' }}
+            >
+              <span className="text-[11px] text-muted-foreground font-medium uppercase tracking-wide">Total</span>
               <span className="text-sm font-bold" style={{ letterSpacing: '-0.3px' }}>
                 {formatCurrency(item.quantity * item.unitPrice)}
               </span>
@@ -199,7 +202,7 @@ export function LineItemsTable() {
           type="button"
           variant="outline"
           size="sm"
-          className="w-full h-10 rounded-xl text-xs border-dashed"
+          className="w-full h-9 rounded-lg text-xs border-dashed"
           onClick={addItem}
         >
           <Plus className="mr-1 h-3.5 w-3.5" />

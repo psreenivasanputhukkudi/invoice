@@ -31,7 +31,7 @@ export function InvoiceHeader({ previewRef }: InvoiceHeaderProps) {
     if (!validateBeforeExport()) return;
     if (!previewRef.current) {
       toast.error('Preview element not found');
-      return false;
+      return;
     }
 
     toast.loading('Generating PDF...', { id: 'pdf-export' });

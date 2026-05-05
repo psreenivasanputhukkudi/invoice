@@ -45,15 +45,16 @@ export function LogoUpload({ logo, onLogoChange, label }: LogoUploadProps) {
 
   return (
     <div className="space-y-1.5">
-      <label className="text-xs font-medium text-muted-foreground">{label}</label>
-      <div className="flex items-center gap-3">
+      <label className="text-xs text-muted-foreground">{label}</label>
+      <div className="flex items-center">
         {logo ? (
           <div className="relative group">
             <div
+              className="flex items-center justify-center"
               style={{
-                width: '52px',
-                height: '52px',
-                borderRadius: '12px',
+                width: '48px',
+                height: '48px',
+                borderRadius: '10px',
                 background: '#f8fafc',
                 border: '1px solid #e2e8f0',
                 padding: '4px',
@@ -68,7 +69,7 @@ export function LogoUpload({ logo, onLogoChange, label }: LogoUploadProps) {
             <Button
               type="button"
               size="icon"
-              className="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity bg-red-500 hover:bg-red-600 text-white border-2 border-white"
+              className="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity bg-red-500 hover:bg-red-600 text-white shadow-sm"
               onClick={handleRemove}
             >
               <X className="h-2.5 w-2.5" />
@@ -77,10 +78,10 @@ export function LogoUpload({ logo, onLogoChange, label }: LogoUploadProps) {
         ) : (
           <button
             type="button"
-            className="flex items-center justify-center rounded-xl border-2 border-dashed transition-all hover:border-foreground/30 hover:bg-muted/50"
+            className="flex items-center justify-center rounded-lg border border-dashed transition-colors hover:border-foreground/25 hover:bg-muted/40"
             style={{
-              width: '52px',
-              height: '52px',
+              width: '48px',
+              height: '48px',
               borderColor: 'var(--border)',
               background: 'transparent',
               cursor: 'pointer',
@@ -88,7 +89,8 @@ export function LogoUpload({ logo, onLogoChange, label }: LogoUploadProps) {
             onClick={() => inputRef.current?.click()}
           >
             <ImagePlus
-              style={{ width: '20px', height: '20px', color: 'var(--muted-foreground)' }}
+              className="text-muted-foreground"
+              style={{ width: '18px', height: '18px' }}
             />
           </button>
         )}

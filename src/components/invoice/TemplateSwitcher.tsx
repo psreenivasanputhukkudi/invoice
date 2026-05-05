@@ -9,19 +9,19 @@ const templates: { id: InvoiceTemplate; label: string; description: string; icon
     id: 'modern',
     label: 'Modern',
     description: 'Bold gradients, dark accents',
-    icon: <Sparkles style={{ width: '14px', height: '14px' }} />,
+    icon: <Sparkles className="h-3.5 w-3.5" />,
   },
   {
     id: 'classic',
     label: 'Classic',
     description: 'No color, clean & formal',
-    icon: <FileText style={{ width: '14px', height: '14px' }} />,
+    icon: <FileText className="h-3.5 w-3.5" />,
   },
   {
     id: 'minimal',
     label: 'Minimal',
     description: 'Ultra-light, whitespace',
-    icon: <Minimize2 style={{ width: '14px', height: '14px' }} />,
+    icon: <Minimize2 className="h-3.5 w-3.5" />,
   },
 ];
 
@@ -30,7 +30,10 @@ export function TemplateSwitcher() {
   const setTemplate = useInvoiceStore((s) => s.setTemplate);
 
   return (
-    <div className="flex items-center gap-1.5 p-1 rounded-xl" style={{ background: 'var(--muted)' }}>
+    <div
+      className="inline-flex items-center gap-0.5 p-0.5 rounded-lg"
+      style={{ background: 'var(--muted)' }}
+    >
       {templates.map((t) => {
         const isActive = template === t.id;
         return (
@@ -38,17 +41,16 @@ export function TemplateSwitcher() {
             key={t.id}
             type="button"
             onClick={() => setTemplate(t.id)}
-            className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 cursor-pointer"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-all duration-150 cursor-pointer"
             style={{
               background: isActive ? 'var(--background)' : 'transparent',
               color: isActive ? 'var(--foreground)' : 'var(--muted-foreground)',
-              boxShadow: isActive ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
-              border: isActive ? '1px solid var(--border)' : '1px solid transparent',
+              boxShadow: isActive ? '0 1px 2px rgba(0,0,0,0.06)' : 'none',
             }}
             title={t.description}
           >
             {t.icon}
-            <span className="hidden sm:inline">{t.label}</span>
+            <span>{t.label}</span>
           </button>
         );
       })}

@@ -22,39 +22,34 @@ export function InvoiceForm() {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       {/* Sender Details */}
-      <Card className="overflow-hidden">
-        <CardHeader className="pb-4">
+      <Card>
+        <CardHeader className="pb-3">
           <div className="flex items-center gap-2.5">
             <div
               className="flex items-center justify-center shrink-0"
               style={{
-                width: '30px',
-                height: '30px',
+                width: '28px',
+                height: '28px',
                 borderRadius: '8px',
                 background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
               }}
             >
-              <Building2 className="text-white" style={{ width: '14px', height: '14px' }} />
+              <Building2 className="text-white" style={{ width: '13px', height: '13px' }} />
             </div>
-            <div>
-              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>From (Sender)</CardTitle>
-            </div>
+            <CardTitle className="text-[13px]" style={{ letterSpacing: '-0.2px' }}>From (Sender)</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4 pt-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <LogoUpload
-              logo={store.senderLogo}
-              onLogoChange={(b64) => store.setLogo('sender', b64)}
-              label="Company Logo"
-            />
-            <div className="sm:col-span-1" />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <CardContent className="space-y-3 pt-0">
+          <LogoUpload
+            logo={store.senderLogo}
+            onLogoChange={(b64) => store.setLogo('sender', b64)}
+            label="Company Logo"
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <Label htmlFor="senderName" className="text-xs font-medium">Company Name</Label>
+              <Label htmlFor="senderName" className="text-xs">Company Name</Label>
               <Input
                 id="senderName"
                 placeholder="Your Company Name"
@@ -64,7 +59,7 @@ export function InvoiceForm() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="senderEmail" className="text-xs font-medium">Email</Label>
+              <Label htmlFor="senderEmail" className="text-xs">Email</Label>
               <Input
                 id="senderEmail"
                 type="email"
@@ -76,7 +71,7 @@ export function InvoiceForm() {
             </div>
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="senderAddress" className="text-xs font-medium">Address</Label>
+            <Label htmlFor="senderAddress" className="text-xs">Address</Label>
             <Textarea
               id="senderAddress"
               placeholder="Full address..."
@@ -87,7 +82,7 @@ export function InvoiceForm() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="senderPhone" className="text-xs font-medium">Phone</Label>
+            <Label htmlFor="senderPhone" className="text-xs">Phone</Label>
             <Input
               id="senderPhone"
               placeholder="+1 (555) 000-0000"
@@ -100,37 +95,35 @@ export function InvoiceForm() {
       </Card>
 
       {/* Client Details */}
-      <Card className="overflow-hidden">
-        <CardHeader className="pb-4">
+      <Card>
+        <CardHeader className="pb-3">
           <div className="flex items-center gap-2.5">
             <div
               className="flex items-center justify-center shrink-0"
               style={{
-                width: '30px',
-                height: '30px',
+                width: '28px',
+                height: '28px',
                 borderRadius: '8px',
                 background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
               }}
             >
-              <UserCircle className="text-white" style={{ width: '14px', height: '14px' }} />
+              <UserCircle className="text-white" style={{ width: '13px', height: '13px' }} />
             </div>
-            <div>
-              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>Bill To (Client) <span className="text-muted-foreground font-normal">(optional)</span></CardTitle>
-            </div>
+            <CardTitle className="text-[13px]" style={{ letterSpacing: '-0.2px' }}>
+              Bill To (Client){' '}
+              <span className="text-muted-foreground font-normal text-[11px]">(optional)</span>
+            </CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4 pt-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <LogoUpload
-              logo={store.clientLogo}
-              onLogoChange={(b64) => store.setLogo('client', b64)}
-              label="Client Logo"
-            />
-            <div className="sm:col-span-1" />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <CardContent className="space-y-3 pt-0">
+          <LogoUpload
+            logo={store.clientLogo}
+            onLogoChange={(b64) => store.setLogo('client', b64)}
+            label="Client Logo"
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <Label htmlFor="clientName" className="text-xs font-medium">Client Name</Label>
+              <Label htmlFor="clientName" className="text-xs">Client Name</Label>
               <Input
                 id="clientName"
                 placeholder="Client Company Name"
@@ -140,7 +133,7 @@ export function InvoiceForm() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="clientEmail" className="text-xs font-medium">Email</Label>
+              <Label htmlFor="clientEmail" className="text-xs">Email</Label>
               <Input
                 id="clientEmail"
                 type="email"
@@ -152,7 +145,7 @@ export function InvoiceForm() {
             </div>
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="clientAddress" className="text-xs font-medium">Address</Label>
+            <Label htmlFor="clientAddress" className="text-xs">Address</Label>
             <Textarea
               id="clientAddress"
               placeholder="Client address..."
@@ -163,7 +156,7 @@ export function InvoiceForm() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="clientPhone" className="text-xs font-medium">Phone</Label>
+            <Label htmlFor="clientPhone" className="text-xs">Phone</Label>
             <Input
               id="clientPhone"
               placeholder="+1 (555) 000-0000"
@@ -176,29 +169,27 @@ export function InvoiceForm() {
       </Card>
 
       {/* Invoice Metadata */}
-      <Card className="overflow-hidden">
-        <CardHeader className="pb-4">
+      <Card>
+        <CardHeader className="pb-3">
           <div className="flex items-center gap-2.5">
             <div
               className="flex items-center justify-center shrink-0"
               style={{
-                width: '30px',
-                height: '30px',
+                width: '28px',
+                height: '28px',
                 borderRadius: '8px',
                 background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
               }}
             >
-              <FileText className="text-white" style={{ width: '14px', height: '14px' }} />
+              <FileText className="text-white" style={{ width: '13px', height: '13px' }} />
             </div>
-            <div>
-              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>Invoice Details</CardTitle>
-            </div>
+            <CardTitle className="text-[13px]" style={{ letterSpacing: '-0.2px' }}>Invoice Details</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4 pt-0">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <CardContent className="space-y-3 pt-0">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="space-y-1.5">
-              <Label htmlFor="invoiceNumber" className="text-xs font-medium">Invoice Number</Label>
+              <Label htmlFor="invoiceNumber" className="text-xs">Invoice Number</Label>
               <Input
                 id="invoiceNumber"
                 value={store.invoiceNumber}
@@ -207,7 +198,7 @@ export function InvoiceForm() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="invoiceDate" className="text-xs font-medium">Invoice Date</Label>
+              <Label htmlFor="invoiceDate" className="text-xs">Invoice Date</Label>
               <Input
                 id="invoiceDate"
                 type="date"
@@ -217,7 +208,7 @@ export function InvoiceForm() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="dueDate" className="text-xs font-medium">Due Date</Label>
+              <Label htmlFor="dueDate" className="text-xs">Due Date</Label>
               <Input
                 id="dueDate"
                 type="date"
@@ -228,9 +219,9 @@ export function InvoiceForm() {
             </div>
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="currency" className="text-xs font-medium">Currency</Label>
+            <Label htmlFor="currency" className="text-xs">Currency</Label>
             <div className="relative">
-              <Tag className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+              <Tag className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
               <select
                 id="currency"
                 value={store.currency}
@@ -252,23 +243,21 @@ export function InvoiceForm() {
       </Card>
 
       {/* Line Items */}
-      <Card className="overflow-hidden">
-        <CardHeader className="pb-4">
+      <Card>
+        <CardHeader className="pb-3">
           <div className="flex items-center gap-2.5">
             <div
               className="flex items-center justify-center shrink-0"
               style={{
-                width: '30px',
-                height: '30px',
+                width: '28px',
+                height: '28px',
                 borderRadius: '8px',
                 background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
               }}
             >
-              <Receipt className="text-white" style={{ width: '14px', height: '14px' }} />
+              <Receipt className="text-white" style={{ width: '13px', height: '13px' }} />
             </div>
-            <div>
-              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>Line Items</CardTitle>
-            </div>
+            <CardTitle className="text-[13px]" style={{ letterSpacing: '-0.2px' }}>Line Items</CardTitle>
           </div>
         </CardHeader>
         <CardContent className="pt-0">
@@ -277,29 +266,27 @@ export function InvoiceForm() {
       </Card>
 
       {/* Financial Summary */}
-      <Card className="overflow-hidden">
-        <CardHeader className="pb-4">
+      <Card>
+        <CardHeader className="pb-3">
           <div className="flex items-center gap-2.5">
             <div
               className="flex items-center justify-center shrink-0"
               style={{
-                width: '30px',
-                height: '30px',
+                width: '28px',
+                height: '28px',
                 borderRadius: '8px',
                 background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
               }}
             >
-              <DollarSign className="text-white" style={{ width: '14px', height: '14px' }} />
+              <DollarSign className="text-white" style={{ width: '13px', height: '13px' }} />
             </div>
-            <div>
-              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>Financial Summary</CardTitle>
-            </div>
+            <CardTitle className="text-[13px]" style={{ letterSpacing: '-0.2px' }}>Financial Summary</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4 pt-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <CardContent className="space-y-3 pt-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <Label htmlFor="taxRate" className="text-xs font-medium">
+              <Label htmlFor="taxRate" className="text-xs">
                 <Percent className="inline h-3 w-3 mr-1" />
                 Tax Rate (%)
               </Label>
@@ -318,7 +305,7 @@ export function InvoiceForm() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="discount" className="text-xs font-medium">
+              <Label htmlFor="discount" className="text-xs">
                 <DollarSign className="inline h-3 w-3 mr-1" />
                 Discount (Flat)
               </Label>
@@ -338,9 +325,9 @@ export function InvoiceForm() {
           </div>
 
           <div
-            className="space-y-2 p-4"
+            className="space-y-1.5 p-3.5"
             style={{
-              borderRadius: '12px',
+              borderRadius: '10px',
               background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
               border: '1px solid #e2e8f0',
             }}
@@ -364,10 +351,10 @@ export function InvoiceForm() {
               </div>
             )}
             <Separator />
-            <div className="flex justify-between items-center pt-1">
-              <span className="text-base font-bold">Grand Total</span>
+            <div className="flex justify-between items-center pt-0.5">
+              <span className="text-[15px] font-bold">Grand Total</span>
               <span
-                className="text-lg font-extrabold"
+                className="text-[17px] font-extrabold"
                 style={{ letterSpacing: '-0.5px' }}
               >
                 {formatCurrency(store.grandTotal)}
@@ -378,28 +365,26 @@ export function InvoiceForm() {
       </Card>
 
       {/* Notes & Terms */}
-      <Card className="overflow-hidden">
-        <CardHeader className="pb-4">
+      <Card>
+        <CardHeader className="pb-3">
           <div className="flex items-center gap-2.5">
             <div
               className="flex items-center justify-center shrink-0"
               style={{
-                width: '30px',
-                height: '30px',
+                width: '28px',
+                height: '28px',
                 borderRadius: '8px',
                 background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
               }}
             >
-              <StickyNote className="text-white" style={{ width: '14px', height: '14px' }} />
+              <StickyNote className="text-white" style={{ width: '13px', height: '13px' }} />
             </div>
-            <div>
-              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>Notes & Terms</CardTitle>
-            </div>
+            <CardTitle className="text-[13px]" style={{ letterSpacing: '-0.2px' }}>Notes & Terms</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4 pt-0">
+        <CardContent className="space-y-3 pt-0">
           <div className="space-y-1.5">
-            <Label htmlFor="paymentTerms" className="text-xs font-medium">Payment Terms</Label>
+            <Label htmlFor="paymentTerms" className="text-xs">Payment Terms</Label>
             <Textarea
               id="paymentTerms"
               placeholder="Payment terms..."
@@ -410,7 +395,7 @@ export function InvoiceForm() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="bankDetails" className="text-xs font-medium">
+            <Label htmlFor="bankDetails" className="text-xs">
               <Landmark className="inline h-3 w-3 mr-1" />
               Bank Details
             </Label>
@@ -424,7 +409,7 @@ export function InvoiceForm() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="notes" className="text-xs font-medium">Notes</Label>
+            <Label htmlFor="notes" className="text-xs">Notes</Label>
             <Textarea
               id="notes"
               placeholder="Additional notes..."

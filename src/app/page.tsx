@@ -18,7 +18,7 @@ export default function Home() {
 
       <main className="flex-1 max-w-[1600px] mx-auto w-full">
         {/* Desktop: Split-screen layout */}
-        <div className="hidden lg:grid lg:grid-cols-2 gap-0 min-h-[calc(100vh-56px)]">
+        <div className="hidden lg:grid lg:grid-cols-2 gap-0 min-h-[calc(100vh-57px)]">
           {/* Left: Form */}
           <div
             className="overflow-y-auto p-5 sm:p-6"
@@ -27,7 +27,7 @@ export default function Home() {
               background: 'var(--background)',
             }}
           >
-            <div className="max-w-xl mx-auto">
+            <div className="max-w-xl mx-auto pb-8">
               <InvoiceForm />
             </div>
           </div>
@@ -36,33 +36,24 @@ export default function Home() {
           <div
             className="overflow-y-auto"
             style={{
-              padding: '24px',
+              padding: '20px',
               background: 'var(--muted)',
               backgroundSize: '20px 20px',
               backgroundImage: 'radial-gradient(circle, var(--border) 0.5px, transparent 0.5px)',
             }}
             id="preview-wrapper"
           >
-            <div className="max-w-xl mx-auto sticky top-6">
+            <div className="max-w-xl mx-auto sticky top-[60px]">
               {/* Preview toolbar */}
-              <div className="mb-4 flex items-center justify-between gap-3">
+              <div className="mb-3 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <Eye className="h-3.5 w-3.5 text-muted-foreground" />
-                  <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  <span className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
                     Preview
-                  </h2>
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <TemplateSwitcher />
-                  <div
-                    className="text-[10px] font-medium px-2 py-0.5 rounded-full shrink-0"
-                    style={{
-                      background: 'rgba(5, 150, 105, 0.1)',
-                      color: '#059669',
-                    }}
-                  >
-                    Live
-                  </div>
                 </div>
               </div>
               <InvoicePreview ref={previewRef} />
@@ -72,7 +63,7 @@ export default function Home() {
 
         {/* Mobile/Tablet: Tabs layout */}
         <div className="lg:hidden">
-          <div className="sticky top-[56px] z-40 bg-background/90 backdrop-blur-xl" style={{ borderBottom: '1px solid var(--border)' }}>
+          <div className="sticky top-[57px] z-40" style={{ borderBottom: '1px solid var(--border)', background: 'var(--background)' }}>
             <Tabs value={mobileTab} onValueChange={setMobileTab} className="w-full">
               <TabsList className="w-full rounded-none bg-transparent h-11 p-0">
                 <TabsTrigger
@@ -90,38 +81,36 @@ export default function Home() {
                   Preview
                 </TabsTrigger>
               </TabsList>
+
+              <TabsContent value="edit" className="mt-0">
+                <div className="p-4 sm:p-5">
+                  <div className="max-w-xl mx-auto pb-6">
+                    <InvoiceForm />
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="preview" className="mt-0">
+                <div
+                  className="p-4 sm:p-5 pb-8"
+                  style={{
+                    background: 'var(--muted)',
+                    backgroundSize: '16px 16px',
+                    backgroundImage: 'radial-gradient(circle, var(--border) 0.5px, transparent 0.5px)',
+                  }}
+                  id="preview-wrapper"
+                >
+                  <div className="max-w-xl mx-auto">
+                    <div className="mb-3 flex items-center justify-between">
+                      <span className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">Preview</span>
+                      <TemplateSwitcher />
+                    </div>
+                    <InvoicePreview ref={previewRef} />
+                  </div>
+                </div>
+              </TabsContent>
             </Tabs>
           </div>
-
-          <Tabs value={mobileTab} onValueChange={setMobileTab} className="w-full">
-            <TabsContent value="edit" className="mt-0">
-              <div className="p-4 sm:p-6">
-                <div className="max-w-xl mx-auto">
-                  <InvoiceForm />
-                </div>
-              </div>
-            </TabsContent>
-            <TabsContent value="preview" className="mt-0">
-              <div
-                className="p-4 sm:p-6 min-h-[calc(100vh-110px)]"
-                style={{
-                  background: 'var(--muted)',
-                  backgroundSize: '16px 16px',
-                  backgroundImage: 'radial-gradient(circle, var(--border) 0.5px, transparent 0.5px)',
-                }}
-                id="preview-wrapper"
-              >
-                <div className="max-w-xl mx-auto">
-                  {/* Mobile template switcher */}
-                  <div className="mb-4 flex items-center justify-between">
-                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Preview</p>
-                    <TemplateSwitcher />
-                  </div>
-                  <InvoicePreview ref={previewRef} />
-                </div>
-              </div>
-            </TabsContent>
-          </Tabs>
         </div>
       </main>
     </div>
