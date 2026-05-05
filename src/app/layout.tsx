@@ -42,7 +42,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    icon: '/icon.svg',
+    apple: '/apple-touch-icon.png',
   },
   openGraph: {
     type: "website",
