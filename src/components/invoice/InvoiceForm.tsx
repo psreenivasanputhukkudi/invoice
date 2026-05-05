@@ -115,7 +115,7 @@ export function InvoiceForm() {
               <UserCircle className="text-white" style={{ width: '14px', height: '14px' }} />
             </div>
             <div>
-              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>Bill To (Client)</CardTitle>
+              <CardTitle className="text-sm" style={{ letterSpacing: '-0.2px' }}>Bill To (Client) <span className="text-muted-foreground font-normal">(optional)</span></CardTitle>
             </div>
           </div>
         </CardHeader>

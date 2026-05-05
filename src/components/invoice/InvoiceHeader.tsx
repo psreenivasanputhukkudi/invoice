@@ -15,22 +15,17 @@ interface InvoiceHeaderProps {
 export function InvoiceHeader({ previewRef }: InvoiceHeaderProps) {
   const { theme, setTheme } = useTheme();
   const invoiceNumber = useInvoiceStore((s) => s.invoiceNumber);
-  const clientName = useInvoiceStore((s) => s.clientName);
   const items = useInvoiceStore((s) => s.items);
   const resetInvoice = useInvoiceStore((s) => s.resetInvoice);
 
   const validateBeforeExport = useCallback((): boolean => {
-    if (!clientName.trim()) {
-      toast.error('Client name is required');
-      return false;
-    }
     const validItems = items.filter((item) => item.description.trim());
     if (validItems.length === 0) {
       toast.error('At least one item with a description is required');
       return false;
     }
     return true;
-  }, [clientName, items]);
+  }, [items]);
 
   const handleDownloadPDF = useCallback(async () => {
     if (!validateBeforeExport()) return;
