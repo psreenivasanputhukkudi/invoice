@@ -122,7 +122,7 @@ export function InvoiceForm() {
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <Label htmlFor="clientName" className="text-xs">Client Name</Label>
+              <Label htmlFor="clientName" className="text-xs">Name</Label>
               <Input
                 id="clientName"
                 placeholder="Client Company Name"
