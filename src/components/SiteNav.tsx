@@ -8,7 +8,8 @@ import { Button } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
 
 const navLinks = [
-  { href: '/', label: 'Generator' },
+  { href: '/', label: 'Home' },
+  { href: '/generator', label: 'Generator' },
   { href: '/about', label: 'About' },
   { href: '/blog', label: 'Blog' },
 ];

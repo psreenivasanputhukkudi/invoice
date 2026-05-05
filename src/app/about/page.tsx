@@ -192,7 +192,7 @@ export default function AboutPage() {
             </p>
             <div className="flex items-center justify-center gap-4 mt-8">
               <Link
-                href="/"
+                href="/generator"
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
                 style={{
                   background: 'rgba(255,255,255,0.15)',

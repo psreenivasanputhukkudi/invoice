@@ -269,7 +269,7 @@ export default function BlogPage() {
               Put these tips into practice with our free invoice generator.
             </p>
             <Link
-              href="/"
+              href="/generator"
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
               style={{
                 background: 'linear-gradient(90deg, #059669, #34d399)',

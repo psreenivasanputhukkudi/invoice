@@ -348,7 +348,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               Create your professional invoice in minutes with our free generator.
             </p>
             <Link
-              href="/"
+              href="/generator"
               className="inline-flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
               style={{
                 background: 'linear-gradient(90deg, #059669, #34d399)',
