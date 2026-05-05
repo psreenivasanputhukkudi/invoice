@@ -63,3 +63,41 @@ Fixed PDF generation error caused by hidden elements (e.g., on mobile when previ
    - Added `getPreviewElement()` helper with `getElementById('invoice-preview')` fallback
    - Descriptive error messages shown via toast with longer duration
    - Better null checks before export
+
+---
+
+## About Page, Blog Pages & SEO
+
+### Date: 2026-05-05
+
+### Summary
+Added About page, Blog listing page, 6 individual blog post pages, shared site-wide navigation, and comprehensive SEO metadata across all routes.
+
+### Files Created
+1. **`src/components/SiteNav.tsx`** - Shared navigation bar with logo, desktop nav links (Generator, About, Blog), active route indicator, theme toggle, and responsive mobile hamburger menu
+2. **`src/app/about/page.tsx`** - About page with: hero section with gradient background, stats bar (100% Free, 8+ Currencies, 3 Templates, 0 Sign-ups), 6 feature cards, "How It Works" 3-step section, 5 FAQs, CTA banner, and footer
+3. **`src/app/blog/page.tsx`** - Blog listing page with: 6 blog post cards with gradient thumbnails, category badges, date/read-time metadata, hover effects, and CTA section
+4. **`src/app/blog/[slug]/page.tsx`** - Dynamic blog post page with: gradient hero header, full article content, CTA banner, 3 related posts, `generateStaticParams()` for SSG, and per-post `generateMetadata()` for unique SEO
+
+### Blog Posts Created
+1. "How to Create a Professional Invoice: Complete Step-by-Step Guide" (Guides)
+2. "10 Invoicing Mistakes Freelancers Must Avoid in 2026" (Tips)
+3. "Modern vs Classic vs Minimal: How to Choose the Right Invoice Template" (Design)
+4. "Payment Terms That Actually Get You Paid Faster" (Finance)
+5. "Tax Invoice Requirements You Must Know: A Country-by-Country Guide" (Compliance)
+6. "Small Business Invoicing: A Complete Best Practices Handbook" (Guides)
+
+### Files Modified
+1. **`src/app/layout.tsx`** - Comprehensive SEO overhaul:
+   - Title template: `%s | Invoice Generator`
+   - 40+ SEO keywords covering invoice generation, billing, templates, PDF export, freelancing, tax compliance
+   - OpenGraph, Twitter Card, robots, canonical URL metadata
+   - Theme color and preconnect tags
+2. **`src/components/invoice/InvoiceHeader.tsx`** - Refactored to use SiteNav component, PDF/Print/Reset action buttons moved to separate action bar below navigation
+3. **`src/app/page.tsx`** - Updated sticky offsets (97px) to accommodate the new taller header (nav + action bar)
+
+### SEO Coverage
+- **Home page**: 40+ keywords in root layout (invoice generator, free invoice maker, PDF invoice, billing software, etc.)
+- **About page**: 10 targeted keywords (about invoice generator, small business invoicing, freelancer invoicing, etc.)
+- **Blog listing**: 14 keywords (invoice tips, billing best practices, freelancer guide, payment terms, etc.)
+- **Each blog post**: 8 unique keywords per post, OpenGraph article metadata, published dates

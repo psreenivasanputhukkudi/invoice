@@ -18,7 +18,7 @@ export default function Home() {
 
       <main className="flex-1 max-w-[1600px] mx-auto w-full">
         {/* Desktop: Split-screen layout */}
-        <div className="hidden lg:grid lg:grid-cols-2 gap-0 min-h-[calc(100vh-57px)]">
+        <div className="hidden lg:grid lg:grid-cols-2 gap-0 min-h-[calc(100vh-97px)]">
           {/* Left: Form */}
           <div
             className="overflow-y-auto p-5 sm:p-6"
@@ -43,7 +43,7 @@ export default function Home() {
             }}
             id="preview-wrapper"
           >
-            <div className="max-w-xl mx-auto sticky top-[60px]">
+            <div className="max-w-xl mx-auto sticky top-[100px]">
               {/* Preview toolbar */}
               <div className="mb-3 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
@@ -63,7 +63,7 @@ export default function Home() {
 
         {/* Mobile/Tablet: Tabs layout */}
         <div className="lg:hidden">
-          <div className="sticky top-[57px] z-40" style={{ borderBottom: '1px solid var(--border)', background: 'var(--background)' }}>
+          <div className="sticky top-[97px] z-40" style={{ borderBottom: '1px solid var(--border)', background: 'var(--background)' }}>
             <Tabs value={mobileTab} onValueChange={setMobileTab} className="w-full">
               <TabsList className="w-full rounded-none bg-transparent h-11 p-0">
                 <TabsTrigger
