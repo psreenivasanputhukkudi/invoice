@@ -19,13 +19,10 @@ function createEmptyItem(): LineItem {
   };
 }
 
-const today = typeof window !== 'undefined'
-  ? new Date().toISOString().split('T')[0]
-  : '';
-
-const dueDate = typeof window !== 'undefined'
-  ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-  : '';
+// Dates start as empty — they get filled on first client mount
+// (avoids hydration mismatch between server '' and client Date)
+const today = '';
+const dueDate = '';
 
 interface InvoiceStore extends InvoiceData {
   // Computed
@@ -166,6 +163,9 @@ export const useInvoiceStore = create<InvoiceStore>()(
       };
     },
     {
+      // Don't start persist hydration until the client calls rehydrate()
+      // This prevents SSR/client mismatches for ALL persisted fields
+      skipHydration: true,
       name: 'invoice-storage',
       partialize: (state) => ({
         template: state.template,
@@ -192,7 +192,16 @@ export const useInvoiceStore = create<InvoiceStore>()(
       }),
       onRehydrateStorage: () => {
         return (_state, error) => {
-          if (!error && _state && !_state.invoiceNumber) {
+          if (error || !_state) return;
+          // Fill in dates on first visit (no persisted data)
+          if (!_state.invoiceDate) {
+            _state.invoiceDate = new Date().toISOString().split('T')[0];
+          }
+          if (!_state.dueDate) {
+            _state.dueDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+          }
+          // Ensure invoice number exists
+          if (!_state.invoiceNumber) {
             _state.invoiceNumber = generateInvoiceNumber();
           }
         };
