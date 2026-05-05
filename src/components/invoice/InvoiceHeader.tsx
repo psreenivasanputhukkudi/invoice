@@ -27,23 +27,35 @@ export function InvoiceHeader({ previewRef }: InvoiceHeaderProps) {
     return true;
   }, [items]);
 
+  const getPreviewElement = useCallback((): HTMLElement | null => {
+    // Try the ref first
+    if (previewRef.current) {
+      return previewRef.current;
+    }
+    // Fallback: find by id (works even if ref isn't connected)
+    return document.getElementById('invoice-preview');
+  }, [previewRef]);
+
   const handleDownloadPDF = useCallback(async () => {
     if (!validateBeforeExport()) return;
-    if (!previewRef.current) {
-      toast.error('Preview element not found');
+
+    const element = getPreviewElement();
+    if (!element) {
+      toast.error('Invoice preview not found. Please make sure the preview is visible.');
       return;
     }
 
     toast.loading('Generating PDF...', { id: 'pdf-export' });
 
     try {
-      await exportToPDF(previewRef.current, `${invoiceNumber || 'invoice'}.pdf`);
+      await exportToPDF(element, `${invoiceNumber || 'invoice'}.pdf`);
       toast.success('PDF downloaded successfully!', { id: 'pdf-export' });
     } catch (error) {
       console.error('PDF export error:', error);
-      toast.error('Failed to generate PDF', { id: 'pdf-export' });
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      toast.error(`Failed to generate PDF: ${message}`, { id: 'pdf-export', duration: 5000 });
     }
-  }, [validateBeforeExport, previewRef, invoiceNumber]);
+  }, [validateBeforeExport, getPreviewElement, invoiceNumber]);
 
   const handlePrint = useCallback(() => {
     if (!validateBeforeExport()) return;

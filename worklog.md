@@ -41,3 +41,25 @@ Built a complete, production-ready Invoice Generator single-page application usi
 - Mobile uses card-based layout for line items instead of table for better UX
 - Financial summary uses `Intl.NumberFormat` for proper currency formatting
 - Dates formatted with `date-fns` library
+
+---
+
+## PDF Generation Error Fix
+
+### Date: 2026-05-05
+
+### Summary
+Fixed PDF generation error caused by hidden elements (e.g., on mobile when preview tab is inactive) and improved html2canvas capture reliability.
+
+### Files Modified
+1. **`src/lib/pdf-export.ts`** - Complete rewrite with:
+   - Hidden element detection via `isElementHidden()` that walks the DOM tree
+   - Clone-based capture: temporarily clones hidden elements, appends to body for rendering, captures, then removes
+   - Added `windowWidth`/`windowHeight` html2canvas options for full content capture
+   - `ignoreElements` callback to skip hidden child nodes
+   - Canvas validation check (zero dimensions = error)
+   - Proper cleanup in `finally` block
+2. **`src/components/invoice/InvoiceHeader.tsx`** - Improved error handling:
+   - Added `getPreviewElement()` helper with `getElementById('invoice-preview')` fallback
+   - Descriptive error messages shown via toast with longer duration
+   - Better null checks before export
