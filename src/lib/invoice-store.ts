@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { InvoiceData, LineItem } from './invoice-types';
+import type { InvoiceData, InvoiceTemplate, LineItem } from './invoice-types';
 
 function generateInvoiceNumber(): string {
   if (typeof window === 'undefined') return 'INV-0001';
@@ -36,6 +36,7 @@ interface InvoiceStore extends InvoiceData {
 
   // Actions
   updateField: <K extends keyof InvoiceData>(key: K, value: InvoiceData[K]) => void;
+  setTemplate: (template: InvoiceTemplate) => void;
   addItem: () => void;
   removeItem: (id: string) => void;
   updateItem: (id: string, field: keyof LineItem, value: string | number) => void;
@@ -58,6 +59,7 @@ export const useInvoiceStore = create<InvoiceStore>()(
       };
 
       const initialState: InvoiceData = {
+        template: 'modern',
         senderName: '',
         senderAddress: '',
         senderEmail: '',
@@ -92,6 +94,10 @@ export const useInvoiceStore = create<InvoiceStore>()(
             const totals = computeTotals(newData as unknown as InvoiceData);
             return { ...newData, ...totals };
           });
+        },
+
+        setTemplate: (template: InvoiceTemplate) => {
+          set({ template });
         },
 
         addItem: () => {
@@ -132,6 +138,7 @@ export const useInvoiceStore = create<InvoiceStore>()(
         resetInvoice: () => {
           const newInvoiceNumber = generateInvoiceNumber();
           const freshState: InvoiceData = {
+            template: 'modern',
             senderName: '',
             senderAddress: '',
             senderEmail: '',
@@ -161,6 +168,7 @@ export const useInvoiceStore = create<InvoiceStore>()(
     {
       name: 'invoice-storage',
       partialize: (state) => ({
+        template: state.template,
         senderName: state.senderName,
         senderAddress: state.senderAddress,
         senderEmail: state.senderEmail,

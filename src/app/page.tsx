@@ -4,8 +4,9 @@ import { useRef, useState } from 'react';
 import { InvoiceHeader } from '@/components/invoice/InvoiceHeader';
 import { InvoiceForm } from '@/components/invoice/InvoiceForm';
 import { InvoicePreview } from '@/components/invoice/InvoicePreview';
+import { TemplateSwitcher } from '@/components/invoice/TemplateSwitcher';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Eye, PenLine } from 'lucide-react';
+import { Eye, PenLine, Palette } from 'lucide-react';
 
 export default function Home() {
   const previewRef = useRef<HTMLDivElement>(null);
@@ -43,21 +44,25 @@ export default function Home() {
             id="preview-wrapper"
           >
             <div className="max-w-xl mx-auto sticky top-6">
-              <div className="mb-4 flex items-center justify-between">
+              {/* Preview toolbar */}
+              <div className="mb-4 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <Eye className="h-3.5 w-3.5 text-muted-foreground" />
                   <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Live Preview
+                    Preview
                   </h2>
                 </div>
-                <div
-                  className="text-[10px] font-medium px-2 py-0.5 rounded-full"
-                  style={{
-                    background: 'rgba(5, 150, 105, 0.1)',
-                    color: '#059669',
-                  }}
-                >
-                  Auto-updating
+                <div className="flex items-center gap-2">
+                  <TemplateSwitcher />
+                  <div
+                    className="text-[10px] font-medium px-2 py-0.5 rounded-full shrink-0"
+                    style={{
+                      background: 'rgba(5, 150, 105, 0.1)',
+                      color: '#059669',
+                    }}
+                  >
+                    Live
+                  </div>
                 </div>
               </div>
               <InvoicePreview ref={previewRef} />
@@ -81,7 +86,7 @@ export default function Home() {
                   value="preview"
                   className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none text-muted-foreground data-[state=active]:text-foreground transition-colors"
                 >
-                  <Eye className="mr-1.5 h-3.5 w-3.5" />
+                  <Palette className="mr-1.5 h-3.5 w-3.5" />
                   Preview
                 </TabsTrigger>
               </TabsList>
@@ -107,6 +112,11 @@ export default function Home() {
                 id="preview-wrapper"
               >
                 <div className="max-w-xl mx-auto">
+                  {/* Mobile template switcher */}
+                  <div className="mb-4 flex items-center justify-between">
+                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Preview</p>
+                    <TemplateSwitcher />
+                  </div>
                   <InvoicePreview ref={previewRef} />
                 </div>
               </div>

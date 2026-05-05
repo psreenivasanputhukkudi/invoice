@@ -1,3 +1,5 @@
+export type InvoiceTemplate = 'modern' | 'classic' | 'minimal';
+
 export interface LineItem {
   id: string;
   description: string;
@@ -6,6 +8,9 @@ export interface LineItem {
 }
 
 export interface InvoiceData {
+  // Template
+  template: InvoiceTemplate;
+
   // Sender
   senderName: string;
   senderAddress: string;
